@@ -1,11 +1,11 @@
 package xur.com.myreddit
 
+import android.app.FragmentManager
 import android.os.Bundle
-import android.support.design.widget.Snackbar
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -14,11 +14,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+    }
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+    fun changeFragment(f: Fragment, cleanStack: Boolean = false) {
+        val ft = supportFragmentManager.beginTransaction()
+        if (cleanStack) {
+            clearBackStack()
         }
+        ft.setCustomAnimations(
+                R.anim.abc_fade_in, R.anim.abc_fade_out, R.anim.abc_popup_enter, R.anim.abc_popup_exit);
+        ft.replace(R.id.activity_base_content, f)
+        ft.addToBackStack(null)
+        ft.commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -43,6 +50,14 @@ class MainActivity : AppCompatActivity() {
             fragmentManager.popBackStack()
         } else {
             finish()
+        }
+    }
+
+    fun clearBackStack() {
+        val fragmentManager = supportFragmentManager
+        if (fragmentManager.backStackEntryCount > 0) {
+            val first = fragmentManager.getBackStackEntryAt(0)
+            fragmentManager.popBackStack(first.id, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         }
     }
 }
