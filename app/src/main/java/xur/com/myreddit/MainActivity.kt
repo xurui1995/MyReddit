@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
+import xur.com.myreddit.features.news.NewsFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,6 +15,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        if (savedInstanceState == null) {
+            changeFragment(NewsFragment())
+        }
     }
 
     fun changeFragment(f: Fragment, cleanStack: Boolean = false) {
