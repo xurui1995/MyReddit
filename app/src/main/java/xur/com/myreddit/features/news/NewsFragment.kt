@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.news_fragment.*
 import xur.com.myreddit.R
 import xur.com.myreddit.common.inflate
+import xur.com.myreddit.features.news.adapter.NewsAdapter
 
 /**
  * Created by xur on 2018/1/4.
@@ -20,7 +21,7 @@ class NewsFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = container?.inflate(R.layout.news_fragment)
+       // val view = container?.inflate(R.layout.news_fragment)
 /*        newsList = view?.findViewById<RecyclerView>(R.id.news_list) as RecyclerView
         newsList?.setHasFixedSize(true)
         newsList?.layoutManager = LinearLayoutManager(context)*/
@@ -32,6 +33,14 @@ class NewsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         newsList.setHasFixedSize(true)
         newsList.layoutManager = LinearLayoutManager(context)
+
+        initAdapter()
+    }
+
+    private fun initAdapter() {
+        if (news_list.adapter == null) {
+            news_list.adapter = NewsAdapter()
+        }
     }
 
 }
