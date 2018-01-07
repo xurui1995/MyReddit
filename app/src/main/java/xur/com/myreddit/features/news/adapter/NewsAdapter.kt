@@ -3,7 +3,7 @@ package xur.com.myreddit.features.news.adapter
 import android.support.v4.util.SparseArrayCompat
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import xur.com.myreddit.common.AdapterConstans
+import xur.com.myreddit.common.AdapterConstants
 import xur.com.myreddit.common.RedditNewsItem
 import xur.com.myreddit.common.ViewType
 import xur.com.myreddit.common.ViewTypeDelegateAdapter
@@ -16,13 +16,13 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var items: ArrayList<ViewType>
     private var delegateAdapters = SparseArrayCompat<ViewTypeDelegateAdapter>()
     private val loadingItem = object : ViewType {
-        override fun getViewType() = AdapterConstans.LOADING
+        override fun getViewType() = AdapterConstants.LOADING
 
     }
 
     init {
-        delegateAdapters.put(AdapterConstans.LOADING, LoadingDelegateAdapter())
-        delegateAdapters.put(AdapterConstans.NEWS, NewsDelegateAdapter())
+        delegateAdapters.put(AdapterConstants.LOADING, LoadingDelegateAdapter())
+        delegateAdapters.put(AdapterConstants.NEWS, NewsDelegateAdapter())
         items = ArrayList()
         items.add(loadingItem)
     }
