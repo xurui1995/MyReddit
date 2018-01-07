@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import xur.com.myreddit.R
 import xur.com.myreddit.common.ViewType
 import xur.com.myreddit.common.ViewTypeDelegateAdapter
-import xur.com.myreddit.common.inflate
+import xur.com.myreddit.common.extensions.inflate
 
 /**
  * Created by xur on 2018/1/6.

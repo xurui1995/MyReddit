@@ -4,6 +4,7 @@ import android.support.v4.util.SparseArrayCompat
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import xur.com.myreddit.common.AdapterConstans
+import xur.com.myreddit.common.RedditNewsItem
 import xur.com.myreddit.common.ViewType
 import xur.com.myreddit.common.ViewTypeDelegateAdapter
 
@@ -21,6 +22,7 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     init {
         delegateAdapters.put(AdapterConstans.LOADING, LoadingDelegateAdapter())
+        delegateAdapters.put(AdapterConstans.NEWS, NewsDelegateAdapter())
         items = ArrayList()
         items.add(loadingItem)
     }
@@ -37,4 +39,17 @@ class NewsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemViewType(position: Int): Int {
         return this.items[position].getViewType()
     }
+
+    fun addNews(news: List<RedditNewsItem>) {
+        // first remove loading and notify
+        val initPosition = items.size - 1
+        items.removeAt(initPosition)
+        notifyItemRemoved(initPosition)
+
+        // insert news and the loading at the end of the list
+        items.addAll(news)
+        items.add(loadingItem)
+        notifyItemRangeChanged(initPosition, items.size + 1 /* plus loading item */)
+    }
+
 }
