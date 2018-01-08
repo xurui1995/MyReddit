@@ -1,20 +1,23 @@
 package xur.com.myreddit.features.news
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.news_fragment.*
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 import xur.com.myreddit.R
+import xur.com.myreddit.common.RxBaseFragment
 import xur.com.myreddit.common.extensions.inflate
 import xur.com.myreddit.features.news.adapter.NewsAdapter
 
 /**
  * Created by xur on 2018/1/4.
  */
-class NewsFragment : Fragment() {
+class NewsFragment : RxBaseFragment() {
     private val newsManager by lazy { NewsManager() }
 
 
@@ -36,7 +39,14 @@ class NewsFragment : Fragment() {
     }
 
     private fun requestNews() {
-
+        val subscription = newsManager.getNews()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {retrievedNews -> (news_list.adapter as NewsAdapter).addNews(retrievedNews)},
+                        {e -> Snackbar.make(news_list, e.message ?: "",Snackbar.LENGTH_LONG).show()}
+                )
+        subscriptions.add(subscription)
     }
 
     private fun initAdapter() {
