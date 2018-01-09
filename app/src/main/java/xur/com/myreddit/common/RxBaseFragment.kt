@@ -1,6 +1,6 @@
 package xur.com.myreddit.common
 
-import android.app.Fragment
+import android.support.v4.app.Fragment
 import rx.subscriptions.CompositeSubscription
 
 /**
