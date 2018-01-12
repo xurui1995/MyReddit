@@ -1,6 +1,6 @@
 @file:JvmName("TimeUtils")
 
-package xur.com.myreddit.common.extensions
+package xur.com.myreddit.commons.extensions
 
 /**
  * Created by xur on 2018/1/6.

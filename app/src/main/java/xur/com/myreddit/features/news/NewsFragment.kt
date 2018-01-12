@@ -10,14 +10,17 @@ import kotlinx.android.synthetic.main.news_fragment.*
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import xur.com.myreddit.R
-import xur.com.myreddit.common.RxBaseFragment
-import xur.com.myreddit.common.extensions.inflate
+import xur.com.myreddit.commons.InfiniteScrollListener
+import xur.com.myreddit.commons.RedditNews
+import xur.com.myreddit.commons.RxBaseFragment
+import xur.com.myreddit.commons.extensions.inflate
 import xur.com.myreddit.features.news.adapter.NewsAdapter
 
 /**
  * Created by xur on 2018/1/4.
  */
 class NewsFragment : RxBaseFragment() {
+    private var redditNews: RedditNews? = null
     private val newsManager by lazy { NewsManager() }
 
 
@@ -28,7 +31,10 @@ class NewsFragment : RxBaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         news_list.setHasFixedSize(true)
-        news_list.layoutManager = LinearLayoutManager(context)
+        val linearLayout = LinearLayoutManager(context)
+        news_list.layoutManager = linearLayout
+        news_list.clearOnScrollListeners()
+        news_list.addOnScrollListener(InfiniteScrollListener({ requestNews() }, linearLayout))
 
         initAdapter()
 
@@ -39,11 +45,13 @@ class NewsFragment : RxBaseFragment() {
     }
 
     private fun requestNews() {
-        val subscription = newsManager.getNews()
+        val subscription = newsManager.getNews(redditNews?.after?:"")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        {retrievedNews -> (news_list.adapter as NewsAdapter).addNews(retrievedNews)},
+                        {retrievedNews ->
+                            redditNews = retrievedNews
+                            (news_list.adapter as NewsAdapter).addNews(retrievedNews.news)},
                         {e -> Snackbar.make(news_list, e.message ?: "",Snackbar.LENGTH_LONG).show()}
                 )
         subscriptions.add(subscription)

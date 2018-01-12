@@ -1,6 +1,6 @@
 @file:JvmName("ExtensionsUtils")
 
-package xur.com.myreddit.common.extensions
+package xur.com.myreddit.commons.extensions
 
 import android.text.TextUtils
 import android.view.LayoutInflater

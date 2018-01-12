@@ -3,10 +3,10 @@ package xur.com.myreddit.features.news.adapter
 import android.support.v4.util.SparseArrayCompat
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import xur.com.myreddit.common.AdapterConstants
-import xur.com.myreddit.common.RedditNewsItem
-import xur.com.myreddit.common.ViewType
-import xur.com.myreddit.common.ViewTypeDelegateAdapter
+import xur.com.myreddit.commons.AdapterConstants
+import xur.com.myreddit.commons.RedditNewsItem
+import xur.com.myreddit.commons.ViewType
+import xur.com.myreddit.commons.ViewTypeDelegateAdapter
 
 /**
  * Created by xur on 2018/1/6.

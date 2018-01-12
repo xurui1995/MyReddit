@@ -1,4 +1,4 @@
-package xur.com.myreddit.common
+package xur.com.myreddit.commons
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup

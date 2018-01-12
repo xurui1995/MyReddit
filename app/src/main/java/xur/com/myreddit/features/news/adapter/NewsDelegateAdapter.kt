@@ -4,12 +4,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.news_item.view.*
 import xur.com.myreddit.R
-import xur.com.myreddit.common.RedditNewsItem
-import xur.com.myreddit.common.ViewType
-import xur.com.myreddit.common.ViewTypeDelegateAdapter
-import xur.com.myreddit.common.extensions.getFriendlyTime
-import xur.com.myreddit.common.extensions.inflate
-import xur.com.myreddit.common.extensions.loadImg
+import xur.com.myreddit.commons.RedditNewsItem
+import xur.com.myreddit.commons.ViewType
+import xur.com.myreddit.commons.ViewTypeDelegateAdapter
+import xur.com.myreddit.commons.extensions.getFriendlyTime
+import xur.com.myreddit.commons.extensions.inflate
+import xur.com.myreddit.commons.extensions.loadImg
 
 /**
  * Created by xur on 2018/1/6.
