@@ -20,6 +20,10 @@ import xur.com.myreddit.features.news.adapter.NewsAdapter
  * Created by xur on 2018/1/4.
  */
 class NewsFragment : RxBaseFragment() {
+
+    companion object {
+        private val KEY_REDDIT_NEWS = "redditNews";
+    }
     private var redditNews: RedditNews? = null
     private val newsManager by lazy { NewsManager() }
 
@@ -30,15 +34,19 @@ class NewsFragment : RxBaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        news_list.setHasFixedSize(true)
-        val linearLayout = LinearLayoutManager(context)
-        news_list.layoutManager = linearLayout
-        news_list.clearOnScrollListeners()
-        news_list.addOnScrollListener(InfiniteScrollListener({ requestNews() }, linearLayout))
-
+        news_list.apply {
+            setHasFixedSize(true)
+            val linearLayout = LinearLayoutManager(context)
+            layoutManager = linearLayout
+            clearOnScrollListeners()
+            addOnScrollListener(InfiniteScrollListener({ requestNews() }, linearLayout))
+        }
         initAdapter()
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState != null && savedInstanceState.containsKey(KEY_REDDIT_NEWS)) {
+           redditNews = savedInstanceState.get(KEY_REDDIT_NEWS) as RedditNews
+            (news_list.adapter as NewsAdapter).clearAndAddNews(redditNews!!.news)
+        } else{
             requestNews()
         }
 
@@ -61,6 +69,15 @@ class NewsFragment : RxBaseFragment() {
         if (news_list.adapter == null) {
             news_list.adapter = NewsAdapter()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        val news = (news_list.adapter as NewsAdapter).getNews()
+        if (redditNews != null && news.isNotEmpty()) {
+            outState?.putParcelable(KEY_REDDIT_NEWS, redditNews?.copy(news = news))
+        }
+
     }
 
 }
