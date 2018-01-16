@@ -1,7 +1,8 @@
 package xur.com.myreddit.features.news
 
 import rx.Observable
-import xur.com.myreddit.api.RestAPI
+import xur.com.myreddit.api.NewsAPI
+import xur.com.myreddit.api.NewsRestAPI
 import xur.com.myreddit.commons.RedditNews
 import xur.com.myreddit.commons.RedditNewsItem
 
@@ -9,7 +10,7 @@ import xur.com.myreddit.commons.RedditNewsItem
 /**
  * Created by xur on 2018/1/7.
  */
-class NewsManager(private val api: RestAPI = RestAPI()) {
+class NewsManager(private val api: NewsAPI = NewsRestAPI()) {
     fun getNews(after: String, limit: String = "10"): Observable<RedditNews> {
         return Observable.create {
             subscriber ->

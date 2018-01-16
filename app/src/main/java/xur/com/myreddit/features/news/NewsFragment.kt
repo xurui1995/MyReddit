@@ -22,7 +22,7 @@ import xur.com.myreddit.features.news.adapter.NewsAdapter
 class NewsFragment : RxBaseFragment() {
 
     companion object {
-        private val KEY_REDDIT_NEWS = "redditNews";
+        private val KEY_REDDIT_NEWS = "redditNews"
     }
     private var redditNews: RedditNews? = null
     private val newsManager by lazy { NewsManager() }
